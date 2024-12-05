@@ -1,0 +1,49 @@
+# Websock Smartcell Demo
+
+```elixir
+Mix.install(
+  [
+    case System.user_home() do
+      "C:\\Users\\chgeuer" -> {:kino_websocket, path: "c:/github/chgeuer/kino_websocket"}
+      "/home/chgeuer" -> {:kino_websocket, path: "/mnt/c/github/chgeuer/kino_websocket"}
+      _ -> {:kino_websocket, github: "chgeuer/kino_websocket"}
+    end
+  ], 
+  force: false
+)
+```
+
+## Section
+
+A few endpoints to connect to:
+
+* `wss://ws.postman-echo.com/raw`
+* `wss://echo.websocket.org/?encoding=text`
+* `wss://kobrakai.de/ws/connection_timer/blogpost`
+
+<!-- livebook:{"attrs":"eyJlbmRwb2ludCI6bnVsbCwiZXh0cmFfaGVhZGVycyI6W10sInNldHRpbmdzIjp7InNob3dfdGltZXN0YW1wcyI6dHJ1ZX19","chunks":null,"kind":"Elixir.Kino.WebSocket.SmartCell","livebook_object":"smart_cell"} -->
+
+```elixir
+defmodule Kino.WebSocket.SmartCell.Client do
+  use WebSockex
+
+  def start_link(endpoint, parent) do
+    WebSockex.start_link(endpoint, __MODULE__, parent, extra_headers: [])
+  end
+
+  def handle_frame({:text, message}, parent) do
+    send(parent, {:websocket_message, message})
+    {:ok, parent}
+  end
+
+  def handle_disconnect(%{reason: {:local, _reason}}, state) do
+    {:ok, state}
+  end
+
+  def handle_cast(:close, state) do
+    {:close, state}
+  end
+end
+
+Kino.WebSocket.SmartCell.Client.start_link(nil)
+```
