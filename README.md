@@ -15,3 +15,14 @@ end
 ```
 
 I'm not sure if this package will be published to Hex.pm, so for now you can just clone the repo and use it directly. Other smart cells like [merquery](https://github.com/acalejos/merquery) are much cleaner with respect to views and state management, while this one is currently a hot JavaScript mess 🙄.
+
+### Screenshot
+
+![Screenshot of the smart cell](content/img/demo.png)
+
+### Animation
+
+![Screenshot of the smart cell](content/img/demo.gif)
+
+
+
