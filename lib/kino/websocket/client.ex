@@ -38,9 +38,7 @@ defmodule Kino.WebSocket.Client do
   end
 
   @impl WebSockex
-  def handle_disconnect(connection_status_map, state) do
-    IO.puts("handle_disconnect #{inspect(connection_status_map)}")
-
+  def handle_disconnect(_connection_status_map, state) do
     send(state.parent_pid, {:disconnected, state.endpoint})
 
     {:ok, %{state | connected: false}}
