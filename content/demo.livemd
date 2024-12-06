@@ -17,9 +17,9 @@ Mix.install(
 
 A few endpoints to connect to:
 
-* `wss://ws.postman-echo.com/raw`
-* `wss://echo.websocket.org/?encoding=text`
-* `wss://kobrakai.de/ws/connection_timer/blogpost`
+* `wss://echo.websocket.org/?encoding=text` (the official test endpoint)
+* `wss://ws.postman-echo.com/raw` (from [Postman](https://learning.postman.com/docs/sending-requests/websocket/create-a-websocket-request/))
+* `wss://kobrakai.de/ws/connection_timer/blogpost` (from the blog [Bare WebSockets (with Elixir and Phoenix)](https://kobrakai.de/kolumne/bare-websockets))
 
 <!-- livebook:{"attrs":"eyJlbmRwb2ludCI6bnVsbCwiZXh0cmFfaGVhZGVycyI6W10sInNldHRpbmdzIjp7InNob3dfdGltZXN0YW1wcyI6dHJ1ZX19","chunks":null,"kind":"Elixir.Kino.WebSocket.SmartCell","livebook_object":"smart_cell"} -->
 
@@ -45,5 +45,8 @@ defmodule Kino.WebSocket.SmartCell.Client do
   end
 end
 
-Kino.WebSocket.SmartCell.Client.start_link(nil)
+Kino.WebSocket.SmartCell.Client.start_link(
+  "wss://echo.websocket.org/?encoding=text",
+  self()
+)
 ```

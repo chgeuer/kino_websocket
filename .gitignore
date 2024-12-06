@@ -24,3 +24,4 @@ kino_websocket-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+/lib/assets/html/.vite

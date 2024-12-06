@@ -7,7 +7,7 @@ defmodule Kino.WebSocket.SmartCell do
 
   @default_extra_headers []
   @default_settings %{"show_timestamps" => true}
-  @default_endpoint "wss://ws.postman-echo.com/raw"
+  @default_endpoint "wss://echo.websocket.org/?encoding=text"
 
   @impl true
   def init(attrs, ctx) do
@@ -172,7 +172,7 @@ defmodule Kino.WebSocket.SmartCell do
         end
       end
 
-      unquote(Module.concat(__MODULE__, Client)).start_link(unquote(attrs["endpoint"]))
+      unquote(Module.concat(__MODULE__, Client)).start_link(unquote(attrs["endpoint"]), self())
     end
     |> Kino.SmartCell.quoted_to_string()
   end

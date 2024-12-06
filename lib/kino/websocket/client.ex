@@ -23,6 +23,19 @@ defmodule Kino.WebSocket.Client do
     )
   end
 
+  def start_link(endpoint, parent_pid, opts) do
+    Logger.info(
+      "Starting WebSocket client to #{inspect(endpoint)} with pid #{inspect(parent_pid)}, opts=#{inspect(opts)}"
+    )
+
+    WebSockex.start_link(
+      endpoint,
+      __MODULE__,
+      %{parent_pid: parent_pid, endpoint: endpoint, connected: false},
+      opts
+    )
+  end
+
   @impl WebSockex
   def handle_connect(conn, state) do
     send(state.parent_pid, {:connected, state.endpoint, conn})
